@@ -1,10 +1,13 @@
 # Lambda authorizers
 
+[![CircleCI](https://circleci.com/gh/upstandfm/lambda-authorizers.svg?style=svg)](https://circleci.com/gh/upstandfm/lambda-authorizers)
+
 AWS lambda authorizers.
 
 ## Table of contents
 
 - [Development](#development)
+- [Monitoring](#monitoring)
 - [CI/CD](#cicd)
 - [Auth0 lambda authorizer](#auth0-authorizer)
 
@@ -33,6 +36,20 @@ Lints all code using ESLint, and formats it using Prettier.
 #### `npm run sls:debug`
 
 Prints the `serverless.yaml` configuration.
+
+## Monitoring
+
+A [Serverless dashboard](https://dashboard.serverless.com/tenants/upstandfm/applications/lambda-authorizers/services/lambda-authorizers/stage/prod/region/eu-central-1#service-overview=overview) has been setup for:
+
+- Alerts (errors)
+- RED metrics
+- Basic observability based on:
+  - Date & time
+  - Function name
+  - Execution duration
+  - Memory usage
+  - Cold start time
+  - Errors
 
 ## CI/CD
 
