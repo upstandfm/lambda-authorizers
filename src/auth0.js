@@ -26,7 +26,7 @@ const verifyJwt = util.promisify(jwt.verify);
  * provider.
  *
  * This lambda will:
- *  1. Extract the bearer token from the Authorization request header.
+ *  1. Extract the bearer token from the "Authorization" request header.
  *  2. Fetch the JWKS from Auth0 and verify the token signature, issuer and
  *     audience claims.
  *  3. Return an IAM Policy document with "Effect" set to "Allow" when the
@@ -92,7 +92,7 @@ module.exports.verifyBearer = async event => {
     };
     return authResponse;
   } catch (err) {
-    console.log('Authorizer Error: ', err); // eslint-disable-line no-console
+    console.log('Authorizer Error: ', err);
 
     // Error MUST be "Unauthorized" EXACTLY for APIG to return a 401
     throw new Error('Unauthorized');
