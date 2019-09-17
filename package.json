@@ -40,5 +40,9 @@
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "serverless": "^1.52.0"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.6.0"
   }
 }
