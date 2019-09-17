@@ -1,0 +1,25 @@
+service: lambda-authorizers
+app: lambda-authorizers
+org: upstandfm
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'prod'}
+  region: ${opt:region, 'eu-central-1'}
+  memorySize: 128
+  timeout: 3
+  deploymentBucket:
+    name: upstandfm-deployments
+    serverSideEncryption: AES256 # when using server-side encryption
+  environment:
+
+package:
+  exclude:
+    - ./*
+    - ./**/*.test.js
+  include:
+    - node_modules
+    - src
+
+functions:
