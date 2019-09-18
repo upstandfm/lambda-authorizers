@@ -7,6 +7,7 @@ provider:
   runtime: nodejs10.x
   stage: ${opt:stage, 'prod'}
   region: ${opt:region, 'eu-central-1'}
+  cfnRole: ${secrets:CFN_ROLE_ARN}
   memorySize: 128
   timeout: 3
   deploymentBucket:

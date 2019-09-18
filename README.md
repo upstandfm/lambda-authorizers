@@ -69,7 +69,7 @@ Additionally, an [access role](https://serverless.com/framework/docs/dashboard/a
 
 > The Serverless Framework leverages AWS Security Token Service and the AssumeRole API to automate creating and usage of temporary credentials, so your developers can stay productive and work securely without doing this manually.
 
-The access role has a custom AWS IAM policy attached, named "ServerlessFramework". This policy limits access to only the required set of resources needed by Serverless (i.e. _no_ `AdministratorAccess`).
+The access role has a custom AWS IAM policies attached. Additionally, a separate CloudFormation role is used to limit access during deployment, to only the required set of permissions needed by Serverless to deploy services (i.e. _no_ `AdministratorAccess`). This is done by setting `provider.cfnRole` in the serverless manifest.
 
 ## Auth0 authorizer
 
