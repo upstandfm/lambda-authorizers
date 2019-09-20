@@ -1,6 +1,6 @@
-service: lambda-authorizers
-app: lambda-authorizers
 org: upstandfm
+app: api
+service: lambda-authorizers
 
 provider:
   name: aws
