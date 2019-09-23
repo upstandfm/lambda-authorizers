@@ -68,6 +68,13 @@ module.exports.verifyBearer = async event => {
 
     const userId = verifiedData.sub;
 
+    // The "event.methodArn" has the format:
+    // "arn:aws:execute-api:region:accountId:apiId/stage/httpVerb/"
+    //
+    // For more info see:
+    // https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html#api-gateway-calling-api-permissions
+    const [apiId, apiEnv] = event.methodArn.split('/');
+
     const authResponse = {
       principalId: userId,
       policyDocument: {
@@ -76,7 +83,11 @@ module.exports.verifyBearer = async event => {
           {
             Action: 'execute-api:Invoke',
             Effect: 'Allow',
-            Resource: event.methodArn
+
+            // Allow access to all resources of the API, if the token is
+            // verified
+            // This format allows the policy document to be cached
+            Resource: `${apiId}/${apiEnv}/*`
           }
         ]
       },
