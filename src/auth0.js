@@ -32,11 +32,18 @@ const verifyJwt = util.promisify(jwt.verify);
  *  3. Return an IAM Policy document with "Effect" set to "Allow" when the
  *     token has been verified.
  *
- * @param {Object} event - HTTP input: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+ * @param {Object} event - HTTP input
+ * @param {Object} context - AWS lambda context
  *
  * @return {Promise} Resolves with an "auth response" (Principal ID, IAM Policy and Context)
+ *
+ * For more info on HTTP input see:
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+ *
+ * For more info on AWS lambda context see:
+ * https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
  */
-module.exports.verifyBearer = async event => {
+module.exports.verifyBearer = async (event, context) => {
   try {
     const token = getToken(event);
 
@@ -103,7 +110,10 @@ module.exports.verifyBearer = async event => {
     };
     return authResponse;
   } catch (err) {
-    console.log('Authorizer Error: ', err);
+    // Provided by Serverless Framework
+    if (context && context.captureError) {
+      context.captureError(err);
+    }
 
     // Error MUST be "Unauthorized" EXACTLY for APIG to return a 401
     throw new Error('Unauthorized');
