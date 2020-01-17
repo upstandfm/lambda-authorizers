@@ -17,6 +17,7 @@ provider:
     AUTH0_JWKS_URI: 'https://upstandfm.eu.auth0.com/.well-known/jwks.json'
     AUTH0_TOKEN_ISSUER: 'https://upstandfm.eu.auth0.com/'
     AUTH0_AUDIENCE: 'https://api.upstand.fm'
+    WORKSPACE_ID_OIDC_CLAIM: 'https://api.upstand.fm/workspace-id'
 
 package:
   exclude:

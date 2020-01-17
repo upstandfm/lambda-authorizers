@@ -7,7 +7,12 @@ const jwksRSA = require('jwks-rsa');
 const getToken = require('./get-token');
 const verifyToken = require('./verify-token');
 
-const { AUTH0_JWKS_URI, AUTH0_TOKEN_ISSUER, AUTH0_AUDIENCE } = process.env;
+const {
+  AUTH0_JWKS_URI,
+  AUTH0_TOKEN_ISSUER,
+  AUTH0_AUDIENCE,
+  WORKSPACE_ID_OIDC_CLAIM
+} = process.env;
 
 // See: https://github.com/auth0/node-jwks-rsa#usage
 const jwksClient = jwksRSA({
@@ -105,7 +110,8 @@ module.exports.verifyBearer = async (event, context) => {
       // It must be either a String, Number or Boolean
       context: {
         userId,
-        scope: verifiedData.scope
+        scope: verifiedData.scope,
+        workspaceId: verifiedData[WORKSPACE_ID_OIDC_CLAIM]
       }
     };
     return authResponse;
